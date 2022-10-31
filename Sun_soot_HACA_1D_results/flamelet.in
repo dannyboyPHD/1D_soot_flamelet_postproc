@@ -1,0 +1,43 @@
+﻿LAMINAR FLAMELET
+
+c2h4                            ! Fuel
+298.                            ! Fuel temperature
+298.                            ! Oxidant temperature
+1.013D5	                        ! Pressure
+100                             ! Strain rate
+9                               ! Mechanism
+1.D-6                           ! Time step size
+0.05                            ! Integration time
+100                             ! Number of grid points
+0.85                            ! Grid stretch factor - 0.85 CH4-air, 0.5 Sandia
+0.                              ! Lower mixture fraction flammability limit】
+0.5                             ! Upper mixture fraction flammability limit
+0                               ! Restart
+10                              ! Interval for write-up
+0.                              ! Initial conditions, lower mixture fraction limit of burnt region
+1.                              ! Initial conditions, upper mixture fraction limit of burnt region
+1                               ! PBE on/off
+10                              ! Number of sub-steps for the PBE
+1                               ! Nucleation kinetics 
+2                               ! Growth kinetics 
+0                               ! 2-equation model
+Mechanism selection:
+1: GRI 1.2
+2: GRI 3.0
+3: Curran
+4: Hydrogen
+5: Dagaut
+6: Leeds
+7: Luche skeletal
+8: USC Mech II old
+9: USC Mech II
+10: Zeldovich
+11: JetSurF 2.0
+12: Pitsch
+13: Dooley
+14: Livermore
+15: POLIMI skeletal
+16: POLIMI detailed
+17: Dodecane Warnatz
+18: GRI30_noNOx
+31: CaCO3 precipitation

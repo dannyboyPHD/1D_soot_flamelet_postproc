@@ -1,0 +1,16 @@
+%% Oct 27, 2022  
+% ' keep the fire burning'
+clear all
+
+data_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/flamelet';
+chem_mech_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/mechanisms';
+
+
+sim_name = 'Sun_soot_HACA_1D';
+
+mkdir(strcat(sim_name,'_results')); 
+
+
+
+
+%%

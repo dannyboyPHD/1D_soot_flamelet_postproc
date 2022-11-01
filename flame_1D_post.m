@@ -39,13 +39,27 @@ soot_psd = clean_psd(soot_psd,soot_moments(:,3)); % soot psd, z
 
 %%
 
-figure(1);
-plot(molar_dist(:,1), molar_dist(:,scalar_lookup('C5H5O(2,4)','offset').offset))
+f = uifigure;
+ax = uiaxes(f);
+
+dd = uidropdown(f,'Items',scalar_lookup.Properties.RowNames,'ValueChangedFcn',@(dd,event) selection(dd,ax,molar_dist));
+dd.ItemsData = scalar_lookup.offset;
+
+%%
+
 
 figure(2);
 psd = getPSDwithZindex(soot_psd,50);
 loglog(psd(:,1),psd(:,2))
 
+% callbacks
+
+function selection(dd,ax,molar_dist)
+
+plot(ax,molar_dist(:,1), molar_dist(:,dd.Value));% the order matters
+
+
+end
 
 
 

@@ -21,10 +21,10 @@ chem_lookup = readtable(strcat(folder_name,'/chem.out'),'FileType','text','Delim
 chem_lookup = clean_lookup(chem_lookup);
 
 % add rho and T
-scalar_table = chem_lookup;
+scalar_lookup = chem_lookup;
 rho = table(0, 0, 0, 0, 0,length(chem_lookup.offset)+1,'VariableNames', {'phase','charge','MR','T_Lo','T_Hi','offset'},'RowNames',string("rho"));
 T = table(0, 0, 0, 0, 0,length(chem_lookup.offset)+2,'VariableNames', {'phase','charge','MR','T_Lo','T_Hi','offset'},'RowNames',string("T"));
-scalar_table = [scalar_table;rho;T];
+scalar_lookup = [scalar_lookup;rho;T];
 
 %% Read in flamelet-species output files
 initial_mass_dist = dlmread(strcat(folder_name,'/conc_massf_init.out'));
@@ -39,13 +39,30 @@ soot_psd = clean_psd(soot_psd,soot_moments(:,3)); % soot psd, z
 
 %%
 
-figure(1);
-plot(initial_molar_dist(:,1), initial_molar_dist(:,scalar('C2H2','offset').offset))
+
+f = uifigure;
+ax = uiaxes(f);
+p = plot(ax);
+% p = plot(ax,molar_dist(:,1), molar_dist(:,2));% the order matters
+dd = uidropdown(f,'Items',scalar_lookup.Properties.RowNames,'ValueChangedFcn',@(dd,event) selection(dd,p,molar_dist));
+dd.ItemsData = scalar_lookup.offset;
+% p = plot(ax,molar_dist(:,1), molar_dist(:,dd.Value));% the order matters
+
+
+%%
+
 
 figure(2);
 psd = getPSDwithZindex(soot_psd,50);
 loglog(psd(:,1),psd(:,2))
 
+% callbacks
+
+function selection(dd,p,molar_dist)
+val = dd.Value;
+p.YData = molar_dist(:,val);
+p.XData = molar_dist(:,);
+end
 
 
 

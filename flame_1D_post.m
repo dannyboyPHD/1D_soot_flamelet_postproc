@@ -20,6 +20,12 @@ copyfile(strcat(psd_path,'/FLAMELET_PSD.out'),folder_name)
 chem_lookup = readtable(strcat(folder_name,'/chem.out'),'FileType','text','Delimiter','\n');
 chem_lookup = clean_lookup(chem_lookup);
 
+% add rho and T
+scalar_lookup = chem_lookup;
+rho = table(0, 0, 0, 0, 0,length(chem_lookup.offset)+1,'VariableNames', {'phase','charge','MR','T_Lo','T_Hi','offset'},'RowNames',string("rho"));
+T = table(0, 0, 0, 0, 0,length(chem_lookup.offset)+2,'VariableNames', {'phase','charge','MR','T_Lo','T_Hi','offset'},'RowNames',string("T"));
+scalar_lookup = [scalar_lookup;rho;T];
+
 %% Read in flamelet-species output files
 initial_mass_dist = dlmread(strcat(folder_name,'/conc_massf_init.out'));
 mass_dist = dlmread(strcat(folder_name,'/conc_massf.out'));
@@ -34,7 +40,7 @@ soot_psd = clean_psd(soot_psd,soot_moments(:,3)); % soot psd, z
 %%
 
 figure(1);
-plot(initial_molar_dist(:,1), initial_molar_dist(:,chem_lookup('CO2','offset').offset))
+plot(molar_dist(:,1), molar_dist(:,scalar_lookup('C5H5O(2,4)','offset').offset))
 
 figure(2);
 psd = getPSDwithZindex(soot_psd,50);

@@ -1,0 +1,32 @@
+LAMINAR FLAMELET
+
+ch4                             ! Fuel
+1                               ! Flame: 1.fuel-air 2.Sandia
+1.                              ! Mixture fraction conversion for partially premixed flames - 1.0 fuel-air, 0.1563631 Sandia
+298.                            ! Fuel temperature
+298.                            ! Oxidant temperature
+1.013D5	                        ! Pressure
+200                             ! Strain rate
+1                               ! Mechanism
+1                               ! Hard-coded chemistry
+2                               ! Method: 1.RCCE 2.full mechanism
+1                               ! Constraint removal for RCCE
+1.D-9                           ! Threshold for constraint removal for RCCE
+1.D-6                           ! Time step
+5.D-2                           ! Integration time
+100                             ! Number of grid points
+0.85                            ! Grid stretch factor - 0.85 CH4-air, 0.5 Sandia
+0.                              ! Lower mixture fraction flammability limit
+1.                              ! Upper mixture fraction flammability limit
+0                               ! Restart
+100                             ! Interval for write-up
+0                               ! Calculate all species in RCCE from constrained equilibrium (for write-up only)
+1                               ! Calculate N2 from elements if not constrained (for write-up only)
+0                               ! Save data for CSP analysis
+0.                              ! Initial conditions, lower mixture fraction limit of burnt region
+1.                              ! Initial conditions, upper mixture fraction limit of burnt region
+0                               ! Pilot on/off
+0.04                            ! Lower mixture fraction limit of pilot
+0.15                            ! Upper mixture fraction limit of pilot
+flamelet/pilot_1.dat            ! Filename for pilot (up to 25 characters)
+1.D-3                           ! Time to remove pilot

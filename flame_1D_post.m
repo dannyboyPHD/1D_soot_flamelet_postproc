@@ -2,19 +2,19 @@
 % 'keep the fire burning'
 clear all
 
-data_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/flamelet';
-chem_mech_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/mechanisms';
-psd_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/pbe';
+data_path = '/home/danny/Desktop/CPMOD/projects/combustion/flamelet';
+chem_mech_path = '/home/danny/Desktop/CPMOD/projects/combustion/mechanisms';
+% psd_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/pbe';
 
-mech = 'USCMechII';
+mech = 'GRI12';
 
-sim_name = 'Sun_soot_HACA_1D';
+sim_name = 'new_flamelet_test';
 folder_name = strcat(sim_name,'_results');
 mkdir(folder_name); 
 
 copyfile(strcat(data_path,'/*'),folder_name);
-copyfile(strcat(chem_mech_path,'/USCMechII/chem.out'),folder_name);
-copyfile(strcat(psd_path,'/FLAMELET_PSD.out'),folder_name)
+copyfile(strcat(chem_mech_path,'/',mech,'/chem.out'),folder_name);
+% copyfile(strcat(psd_path,'/FLAMELET_PSD.out'),folder_name)
 
 %% Read and clean chemkin file chem.out
 chem_lookup = readtable(strcat(folder_name,'/chem.out'),'FileType','text','Delimiter','\n');
@@ -33,30 +33,29 @@ mass_dist = dlmread(strcat(folder_name,'/conc_massf.out'));
 initial_molar_dist = dlmread(strcat(folder_name,'/conc_molf_init.out'),' ',1,1);
 molar_dist =  dlmread(strcat(folder_name,'/conc_molf.out'));
 %% Read in flamelet Soot
-soot_moments = dlmread(strcat(folder_name,'/final_distribution.out'));
-soot_psd = dlmread(strcat(folder_name,'/FLAMELET_PSD.out'));
-soot_psd = clean_psd(soot_psd,soot_moments(:,3)); % soot psd, z
+% soot_moments = dlmread(strcat(folder_name,'/final_distribution.out'));
+% soot_psd = dlmread(strcat(folder_name,'/FLAMELET_PSD.out'));
+% soot_psd = clean_psd(soot_psd,soot_moments(:,3)); % soot psd, z
 
 %%
 
 f = uifigure;
 ax = uiaxes(f);
 
-dd = uidropdown(f,'Items',scalar_lookup.Properties.RowNames,'ValueChangedFcn',@(dd,event) selection(dd,ax,molar_dist));
+dd = uidropdown(f,'Items',scalar_lookup.Properties.RowNames,'ValueChangedFcn',@(dd,event) selection(dd,ax,mass_dist));
 dd.ItemsData = scalar_lookup.offset;
 
 %%
 
 
-figure(2);
-psd = getPSDwithZindex(soot_psd,50);
-loglog(psd(:,1),psd(:,2))
+% figure(2);
+% psd = getPSDwithZindex(soot_psd,50);
+% loglog(psd(:,1),psd(:,2))
 
 % callbacks
+function selection(dd,ax,mass_dist)
 
-function selection(dd,ax,molar_dist)
-
-plot(ax,molar_dist(:,1), molar_dist(:,dd.Value));% the order matters
+plot(ax,mass_dist(:,1), mass_dist(:,dd.Value));% the order matters
 
 
 end

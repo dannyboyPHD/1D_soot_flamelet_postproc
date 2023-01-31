@@ -2,7 +2,7 @@
 % 'keep the fire burning'
 clear all
 
-data_path = '/home/danny/Desktop/CPMOD/projects/combustion/flamelet';
+data_path = './new_sooting_flame/';
 chem_mech_path = '/home/danny/Desktop/CPMOD/projects/combustion/mechanisms';
 % psd_path = '/home/danny/Desktop/cpmod/projects/soot-flamelet/pbe';
 

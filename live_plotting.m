@@ -4,7 +4,8 @@
 % Live output for 1D flame, for debugging purposes
 %% directories
 
-data_dir = '../sooting_flamlet2/projects/combustion/flamelet/';
+% data_dir = '../sooting_flamlet2/projects/combustion/flamelet/';
+data_dir = './Jan31_2PBEDiff/';
 
 %%
 f = 'z_space.out';
